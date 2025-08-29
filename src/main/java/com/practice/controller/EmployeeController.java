@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -52,4 +53,17 @@ public ResponseEntity<List<Employee>> saveListOfEmployee(@RequestBody List<Emplo
     employeeService.saveListOfEmployee(employeeList);
     return new ResponseEntity<>(employeeList,HttpStatus.CREATED);
 }
+
+    @GetMapping("/filter")
+    public ResponseEntity<List<Employee>> filterEmployeeByDepartment(@RequestParam(required = false) String department, @RequestParam(required = false) String designation){
+        List<Employee> sortedList = new ArrayList<>();
+
+        if(department!= null){
+            sortedList = employeeService.filterByDepartment(department);
+        }else {
+            sortedList =employeeService.filterBydesingnation(designation);
+        }
+
+        return new ResponseEntity<>(sortedList,HttpStatus.OK);
+    }
 }

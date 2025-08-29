@@ -18,4 +18,8 @@ public interface EmployeeService {
     Employee updateEmployeeById(int id, Employee newEmployee);
 
     List<Employee> saveListOfEmployee(List<Employee> employeeList);
+
+    List<Employee> filterByDepartment(String department);
+
+    List<Employee> filterBydesingnation(String designation);
 }

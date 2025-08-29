@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -58,6 +59,22 @@ public class EmployeeServiceImpl implements EmployeeService {
     public List<Employee> saveListOfEmployee(List<Employee> employeeList) {
         employeeRepository.saveAll(employeeList);
         return employeeList;
+    }
+
+    @Override
+    public List<Employee> filterByDepartment(String department) {
+        List<Employee> employeeList = employeeRepository.findAll();
+
+        List<Employee> filteredList =employeeList.stream().filter(employee -> employee.getDepartment().equalsIgnoreCase(department)).collect(Collectors.toList());
+        return filteredList;
+    }
+
+    @Override
+    public List<Employee> filterBydesingnation(String designation) {
+        List<Employee> employeeList = employeeRepository.findAll();
+
+        List<Employee> filteredList = employeeList.stream().filter(employee -> employee.getDesignation().equalsIgnoreCase(designation)).collect(Collectors.toList());
+        return filteredList;
     }
 
 
